@@ -48,6 +48,8 @@ $usia = date('Y') - $tahun_lahir;
 return "<p>Hai <b>". $nama . "</b><br> usia anda sekarang adalah <b>". $usia ."</b> tahun.</p>";
 });
 
+//aaaaa
+
 
 //route with optional parameter
 Route::get('mahasiswa/{nama?}', function ($nama='tidak ada') {
