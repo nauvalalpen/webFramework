@@ -107,21 +107,21 @@ Route::get('mahasiswa/pnp/nauval', function () {
 
 // Authentication routes
 Route::get('/login', function() {
-  return view('auth.login');
+  return view('Tugas1.auth.login');
 });
 
 Route::get('/register', function() {
-  return view('auth.register');
+  return view('Tugas1.auth.register');
 });
 
-// Dashboard routes
 Route::get('/dashboard', function() {
-  return view('dashboard');
+  return view('Tugas1.auth.dashboard');
 });
+
 
 // Profile management routes
 Route::get('/profile/edit', function() {
-  return view('profile.edit');
+  return view('Tugas1.profile.edit');
 });
 
 Route::put('/profile/update', function() {
@@ -130,12 +130,12 @@ Route::put('/profile/update', function() {
 
 // API documentation route
 Route::get('/docs', function() {
-  return view('api.documentation');
+  return view('Tugas1.api.documentation');
 });
 
 // Contact form routes
 Route::get('/contact', function() {
-  return view('contact');
+  return view('Tugas1.contact');
 });
 
 Route::post('/contact/send', function() {
