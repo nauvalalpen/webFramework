@@ -3,12 +3,91 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\MahasiswaController;
 
 
 //default routing
 Route::get('/', function () {
    return view('welcome');
 });
+
+Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
+
+Route::view('/hello', 'hello', ['nama' => 'Nauval']);
+
+// Route::get('/listmahasiswa', function(){
+//   $arrmhs=[
+//     'nauval',
+//     'alpen',
+//     'perdana',
+//     'sintaaa'
+//   ];
+//   return view('akademik.mahasiswa', ['mhs' => $arrmhs]);
+  
+// });
+
+Route::get("listmahasiswa", function(){
+  $mhs1 = 'nauval';
+  $mhs2 = 'alpen';
+  $mhs3 = 'perdana';
+  return view("akademik.mahasiswalist", compact("mhs1", "mhs2", "mhs3"));
+});
+
+// PERULANGAN : 
+
+Route::get("nilaimahasiswa", function(){
+  $nama = 'nauval';
+  $nim = 2311083024;
+  $total_nilai = 56.6;
+  return view("akademik.nilaimahasiswa", compact("nama", "nim", "total_nilai"));
+}); 
+
+Route::get("nilaimahasiswaSwitch", function(){
+  $nama = 'nauval';
+  $nim = 2311083024;
+  $total_nilai = 56.6;
+  return view("akademik.nilaimahasiswaSwitch", compact("nama", "nim", "total_nilai"));
+}); 
+
+Route::get("nilaimahasiswaforloop", function(){
+  $nama = 'nauval';
+  $nim = 2311083024;
+  $total_nilai = 56.6;
+  return view("akademik.nilaimahasiswaforloop", compact("nama", "nim", "total_nilai"));
+}); 
+Route::get("nilaimahasiswawhile", function(){
+  $nama = 'nauval';
+  $nim = 2311083024;
+  $total_nilai = 9;
+  return view("akademik.nilaimahasiswaforwhile", compact("nama", "nim", "total_nilai"));
+}); 
+Route::get("nilaimahasiswaforeach", function(){
+  $nama = 'nauval';
+  $nim = 2311083024;
+  $total_nilai = [1, 2, 3];
+  return view("akademik.nilaimahasiswaforeach", compact("nama", "nim", "total_nilai"));
+}); 
+Route::get("nilaimahasiswaforelse", function(){
+  $nama = 'nauval';
+  $nim = 2311083024;
+  $total_nilai = [1, 89, 70, 55];
+  return view("akademik.nilaimahasiswaforelse", compact("nama", "nim", "total_nilai"));
+}); 
+Route::get("nilaimahasiswacontinue", function(){
+  $nama = 'nauval';
+  $nim = 2311083024;
+  $total_nilai = [1, 89, 70, 55];
+  return view("akademik.nilaimahasiswacontinue", compact("nama", "nim", "total_nilai"));
+}); 
+Route::get("nilaimahasiswabreak", function(){
+  $nama = 'nauval';
+  $nim = 2311083024;
+  $total_nilai = [80, 100, 1, 89, 70, 55];
+  return view("akademik.nilaimahasiswabreak", compact("nama", "nim", "total_nilai"));
+}); 
+
+
+
 
 route::post('submit', function(){
   return 'data berhasil ditambahkan';
@@ -38,9 +117,9 @@ Route::get('mahasiswa/ti/latifa', function () {
 
 
 //route with parameter
-Route::get('mahasiswa/{nama}', function ($nama) {
-   return '<p> Nama mahasiswa RPL : <b>' . $nama . '</b></p>';
-});
+// Route::get('mahasiswa/{nama}', function ($nama) {
+//    return '<p> Nama mahasiswa RPL : <b>' . $nama . '</b></p>';
+// });
 
 
 Route::get('hitungusia/{nama}/{tahunlahir}',function($nama,$tahun_lahir){
@@ -52,9 +131,9 @@ return "<p>Hai <b>". $nama . "</b><br> usia anda sekarang adalah <b>". $usia ."<
 
 
 //route with optional parameter
-Route::get('mahasiswa/{nama?}', function ($nama='tidak ada') {
-   return '<p> Nama mahasiswa RPL : <b>' . $nama . '</b></p>';
-});
+// Route::get('mahasiswa/{nama?}', function ($nama='tidak ada') {
+//    return '<p> Nama mahasiswa RPL : <b>' . $nama . '</b></p>';
+// });
 
 
 Route::get('hitungusia/{nama?}/{tahunlahir?}',function($nama="tidak ada",$tahun_lahir="2025"){
@@ -172,7 +251,13 @@ Route::prefix('admin')->group(function() {
   });
 });
 
+
+
 //route fallback
 Route::fallback(function(){
    return "<h2> Mohon maaf, halaman yang anda cari <b>tidak ditemukan</b>";
 });
+
+
+
+Route::resource('mahasiswa', MahasiswaController::class);
