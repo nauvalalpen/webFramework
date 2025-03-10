@@ -258,6 +258,33 @@ Route::fallback(function(){
    return "<h2> Mohon maaf, halaman yang anda cari <b>tidak ditemukan</b>";
 });
 
+// 10 Maret 2025 : 
+
+//mahasiswa
+Route::get('/pnp/mahasiswa/mahasiswati', function () {
+  $arrMhs = ['nauval', 'reykel', 'agel', 'dika', 'gilang', 'rafi'];
+  return view('akademik.mahasiswapnp', ['mhs' => $arrMhs]);
+})->name('mahasiswapnp');
+
+// Dosen
+Route::get('/pnp/dosen/dosenti', function () {
+  $arrDns = ['dosen web framework', 'dosen microservice', 'dosen mobile programming', 'dosen web programming', 'dosen multimedia', 'dosen IoT'];
+  return view('akademik.dosenpnp', ['dns' => $arrDns]);
+})->name('dosenpnp');
+
+// Prodi
+// Route::get('/pnp/jurusan/proditi', function ($jurusan, $prodi) {
+//   $data=[$jurusan, $prodi];
+//   // $arrprodi = ['TRPL', 'Manajemen Informatika', 'Teknik Komputer', 'Animasi'];
+//   return view('akademik.prodipnp')->with('data', $data);
+// })->name('prodipnp');
+
+Route::get('/pnp/jurusan/{jurusan}/{prodi}', function ($jurusan, $prodi) {
+  $data = [$jurusan, $prodi];
+  return view('akademik.prodipnp')->with('data', $data);
+})->name('prodipnp');
+
+
 
 
 Route::resource('mahasiswa', MahasiswaController::class);
