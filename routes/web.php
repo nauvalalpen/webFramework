@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\MahasiswaController;
-
+use App\Http\Controllers\dosen\DosenController;
+use App\Http\Controllers\TeknisiController;
 
 //default routing
 Route::get('/', function () {
@@ -284,7 +285,21 @@ Route::get('/pnp/jurusan/{jurusan}/{prodi}', function ($jurusan, $prodi) {
   return view('akademik.prodipnp')->with('data', $data);
 })->name('prodipnp');
 
+// WebFramework tanggal 14 Maret 2023
+
+Route::get('dosen', [DosenController::class, 'index']);
+
+// Controller untuk yang make::controller nameController --resource 
+Route::get('teknisi', [TeknisiController::class, 'index']);
+Route::get('teknisi/create', [TeknisiController::class, 'create']);
+Route::post('teknisi', [TeknisiController::class, 'store']);
+Route::get('teknisi/{id}', [TeknisiController::class, 'show']);
+Route::get('teknisi/{id}/edit', [TeknisiController::class, 'edit']);
+Route::put('teknisi/{id}', [TeknisiController::class, 'update']);
+Route::delete('teknisi/{id}', [TeknisiController::class, 'destroy']);
+
 
 
 
 Route::resource('mahasiswa', MahasiswaController::class);
+
