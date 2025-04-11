@@ -5,7 +5,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\dosen\DosenController;
+use App\Http\Controllers\dosen\DosenPNPController;
+use App\Http\Controllers\mahasiswa\MahasiswaPNPController;
 use App\Http\Controllers\TeknisiController;
+
 
 //default routing
 Route::get('/', function () {
@@ -298,8 +301,33 @@ Route::get('teknisi/{id}/edit', [TeknisiController::class, 'edit']);
 Route::put('teknisi/{id}', [TeknisiController::class, 'update']);
 Route::delete('teknisi/{id}', [TeknisiController::class, 'destroy']);
 
-
-
-
 Route::resource('mahasiswa', MahasiswaController::class);
+
+Route::get('insert-sql', [MahasiswaController::class, 'insertSql']);
+Route::get('insert-prepared', [MahasiswaController::class, 'insertPrepared']);
+Route::get('insert-binding', [MahasiswaController::class, 'insertBinding']);
+Route::get('update', [MahasiswaController::class, 'update']);
+Route::get('delete', [MahasiswaController::class, 'delete']);
+Route::get('select', [MahasiswaController::class, 'select']);
+Route::get('select-tampil', [MahasiswaController::class, 'selectTampil']);
+Route::get('select-view', [MahasiswaController::class, 'selectView']);
+Route::get('select-where', [MahasiswaController::class, 'selectWhere']);
+Route::get('statement', [MahasiswaController::class, 'statement']);
+
+
+Route::get('dosen', [DosenPNPController::class, 'index'])->name('dosens.index');
+Route::get('dosen/create', [DosenPNPController::class, 'create'])->name('dosens.create');
+Route::post('dosen', [DosenPNPController::class, 'store'])->name('dosens.store');
+Route::get('dosen/{id}/edit', [DosenPNPController::class, 'edit'])->name('dosens.edit');
+Route::put('dosen/{id}', [DosenPNPController::class, 'update'])->name('dosens.update');
+Route::delete('dosen/{id}', [DosenPNPController::class, 'destroy'])->name('dosens.destroy');
+
+Route::get('mahasiswas', [MahasiswaPNPController::class, 'index'])->name('mahasiswas.index');
+Route::get('mahasiswas/create', [MahasiswaPNPController::class, 'create'])->name('mahasiswas.create');
+Route::post('mahasiswas', [MahasiswaPNPController::class, 'store'])->name('mahasiswas.store');
+Route::get('mahasiswas/{id}/edit', [MahasiswaPNPController::class, 'edit'])->name('mahasiswas.edit');
+Route::put('mahasiswas/{id}', [MahasiswaPNPController::class, 'update'])->name('mahasiswas.update');
+Route::delete('mahasiswas/{id}', [MahasiswaPNPController::class, 'destroy'])->name('mahasiswas.destroy');
+
+
 

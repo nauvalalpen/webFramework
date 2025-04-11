@@ -1,14 +1,74 @@
 @extends('layout.main')
-
-@section('title', 'Data Mahasiswa')
-
+@section('title')
+    Daftar Mahasiswa
+@endsection
 @section('content')
-    <h1>Daftar Mahasiswa Jurusan TI</h1>
-    <ol>
-        @foreach ($mhs as $namaMhs)
-            <li>
-                {{ $namaMhs }}
-            </li>
-        @endforeach
-    </ol>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Add more styles as needed */
+    </style>
+
+    <h1>Daftar Mahasiswa jurusan ti</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>NIM</th>
+                <th>Jurusan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($mhs as $mahasiswa)
+                <tr>
+                    <td>{{ $mahasiswa->id }}</td>
+                    <td>{{ $mahasiswa->nama }} </td>
+                    <td>{{ $mahasiswa->nim }} </td>
+                    <td>{{ $mahasiswa->prodi }} </td>
+
+                </tr>
+            @endforeach
+    </table>
 @endsection
