@@ -17,8 +17,11 @@ return new class extends Migration
             $table->string('nik')->unique();
             $table->string('email')->unique();
             $table->string('nohp')->nullable();
+            $table->string('keahlian')->nullable();
             $table->string('alamat')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
