@@ -354,4 +354,7 @@ Route::get('with-trashed',[DosenController::class,'withTrashed']);
 Route::get('restore',[DosenController::class,'restore']);
 Route::get('force-delete',[DosenController::class,'forceDelete']);
 
+//create all views from MahasiswaFactory and seeder route
+Route::get('select-view', [MahasiswaController::class, 'selectView']);
+
 

@@ -119,8 +119,9 @@ class DosenController extends Controller
    }
    public function allView()
    {
-       $dosen = Dosen::all();
-       return view('akademik.dosen', ['dsn' => $dosen]);
+        $dosen = Dosen::paginate(10); // This returns a paginated collection with 10 items per page
+        return view('akademik.dosen', ["dsn" => $dosen]);
+    
    }
 
 
@@ -168,6 +169,26 @@ class DosenController extends Controller
    {
        $dosen = Dosen::orderBy("id")->skip(1)->take(4)->get();
        return view('akademik.dosen', ['dsn' => $dosen]);
+   }
+
+   public function softDelete(){
+    Dosen::where('id', '2')->delete();
+    return "Data berhasil dihapus";
+   }
+
+   public function withTrashed(){
+    $dosen = Dosen::withTrashed()->get();
+    return view('akademik.dosen', ['dsn' => $dosen]);
+   }
+
+   public function restore(){
+    Dosen::withTrashed()->where('id', '2')->restore();
+    return "Data berhasil restore";
+   }
+
+   public function forceDelete(){
+    Dosen::where('id', '2')->forceDelete();
+    return "Data berhasil dihapus secara permanent";
    }
 
 }

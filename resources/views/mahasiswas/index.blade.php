@@ -28,7 +28,7 @@
                                         <th>No HP</th>
                                         <th>Jurusan</th>
                                         <th>Program Studi</th>
-                                        <th>Tanggal Lahir</th>
+                                        {{-- <th>Tanggal Lahir</th> --}}
                                         <th>Alamat</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -43,7 +43,7 @@
                                             <td>{{ $mahasiswa->nohp }}</td>
                                             <td>{{ $mahasiswa->jurusan }}</td>
                                             <td>{{ $mahasiswa->prodi }}</td>
-                                            <td>{{ $mahasiswa->tgllahir }}</td>
+                                            {{-- <td>{{ $mahasiswa->tgllahir }}</td> --}}
                                             <td>{{ $mahasiswa->alamat }}</td>
                                             <td>
                                                 <div class="d-flex">

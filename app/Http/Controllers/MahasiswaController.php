@@ -71,9 +71,15 @@ class MahasiswaController extends Controller
     }
 
     public function selectView(){
-        $query = DB::select('SELECT * FROM mahasiswas');
+        // Option 1: Using the DB facade with query builder
+        $query = DB::table('mahasiswas')->latest()->paginate(10);
+        
+        // OR Option 2: Using the Eloquent model (preferred)
+        // $query = \App\Models\Mahasiswa::latest()->paginate(10);
+        
         return view('akademik.mahasiswapnp', ["mhs" => $query]);
     }
+    
 
     public function selectWhere(){
         $query = DB::select('select * from mahasiswas where id = 1');

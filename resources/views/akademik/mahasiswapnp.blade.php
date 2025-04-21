@@ -47,7 +47,18 @@
             background-color: #f1f1f1;
         }
 
-        /* Add more styles as needed */
+        .pagination-container .pagination {
+            margin-bottom: 0;
+        }
+
+        .pagination-container .page-link {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .pagination-container .page-item .page-link {
+            border-radius: 0.2rem;
+        }
     </style>
 
     <h1>Daftar Mahasiswa jurusan ti</h1>
@@ -71,4 +82,7 @@
                 </tr>
             @endforeach
     </table>
+    <div class="pagination-container d-flex justify-content-center mt-4">
+        {{ $mhs->links('pagination::bootstrap-5') }}
+    </div>
 @endsection
