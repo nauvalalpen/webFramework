@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dosen;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\Dosen;
 
 use Illuminate\Http\Request;
 
@@ -13,9 +14,9 @@ class DosenPNPController extends Controller
      */
     public function index()
     {
-        //
-        $dosens = DB::table('dosens')->get();
-        return view('dosens/index', compact('dosens'));
+        // Use the Eloquent model with pagination instead of DB facade
+        $dosens = Dosen::paginate(10);
+        return view('dosens.index', compact('dosens'));
     }
 
     /**
@@ -35,23 +36,23 @@ class DosenPNPController extends Controller
         //
         $request->validate([
             'nama' => 'required|string|max:255',
-            'nik' => 'required|string|max:255',
+            'nip' => 'required|string|max:255',
             'email' => 'required|email|unique:dosens',
             'nohp' => 'nullable|string|max:255',
             'alamat' => 'nullable|string|max:255',
-            'keahlian' => 'required|string|max:255',
+            'bidang_keahlian' => 'required|string|max:255',
         ]);
-        DB::table('dosens')->insert([
+        
+        Dosen::create([
             'nama' => $request->nama,
-            'nik' => $request->nik,
+            'nip' => $request->nip,
             'email' => $request->email,
             'nohp' => $request->nohp,
             'alamat' => $request->alamat,
-            'keahlian' => $request->keahlian,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'bidang_keahlian' => $request->bidang_keahlian,
         ]);
-        return redirect()->route('dosens.index')->with('Success', 'Data dosen berhasil ditambahkan');
+        
+        return redirect()->route('dosens.index')->with('success', 'Data dosen berhasil ditambahkan');
     }
 
     /**
@@ -68,7 +69,7 @@ class DosenPNPController extends Controller
     public function edit(string $id)
     {
         //
-        $dosen = DB::table('dosens')->where('id', $id)->first();
+        $dosen = Dosen::findOrFail($id);
         return view('dosens.edit', compact('dosen'));
     }
 
@@ -80,22 +81,24 @@ class DosenPNPController extends Controller
         //
         $request->validate([
             'nama' => 'required|string|max:255',
-            'nik' => 'required|string|max:255',
+            'nip' => 'required|string|max:255',
             'email' => 'required|email|unique:dosens,email,'.$id,
             'nohp' => 'nullable|string|max:255',
             'alamat' => 'nullable|string|max:255',
-            'keahlian' => 'required|string|max:255',
+            'bidang_keahlian' => 'required|string|max:255',
         ]);
-        DB::table('dosens')->where('id', $id)->update([
+        
+        $dosen = Dosen::findOrFail($id);
+        $dosen->update([
             'nama' => $request->nama,
-            'nik' => $request->nik,
+            'nip' => $request->nip,
             'email' => $request->email,
             'nohp' => $request->nohp,
             'alamat' => $request->alamat,
-            'keahlian' => $request->keahlian,
-            'updated_at' => now(),
+            'bidang_keahlian' => $request->bidang_keahlian,
         ]);
-        return redirect()->route('dosens.index')->with('Success', 'Data dosen berhasil diupdate');
+        
+        return redirect()->route('dosens.index')->with('success', 'Data dosen berhasil diupdate');
     }
 
     /**
@@ -104,7 +107,8 @@ class DosenPNPController extends Controller
     public function destroy(string $id)
     {
         //
-        DB::table('dosens')->where('id', $id)->delete();
-        return redirect()->route('dosens.index')->with('Success', 'Data dosen berhasil dihapus');
+        $dosen = Dosen::findOrFail($id);
+        $dosen->delete();
+        return redirect()->route('dosens.index')->with('success', 'Data dosen berhasil dihapus');
     }
 }

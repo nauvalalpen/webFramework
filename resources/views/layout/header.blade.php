@@ -19,6 +19,9 @@
                         <a class="nav-link" href="{{ route('dosens.index') }}">Dosen</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dosenti.index') }}">Dosen TI</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link"
                             href="{{ route('prodipnp', ['jurusan' => 'TI', 'prodi' => 'TRPL']) }}">Prodi</a>
 

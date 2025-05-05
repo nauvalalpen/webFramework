@@ -6,6 +6,7 @@ use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\dosen\DosenController;
 use App\Http\Controllers\dosen\DosenPNPController;
+use App\Http\Controllers\dosen\DosentiController;
 use App\Http\Controllers\mahasiswa\MahasiswaPNPController;
 use App\Http\Controllers\TeknisiController;
 
@@ -315,12 +316,24 @@ Route::get('select-where', [MahasiswaController::class, 'selectWhere']);
 Route::get('statement', [MahasiswaController::class, 'statement']);
 
 
+//Query Builder
 Route::get('dosen', [DosenPNPController::class, 'index'])->name('dosens.index');
 Route::get('dosen/create', [DosenPNPController::class, 'create'])->name('dosens.create');
 Route::post('dosen', [DosenPNPController::class, 'store'])->name('dosens.store');
 Route::get('dosen/{id}/edit', [DosenPNPController::class, 'edit'])->name('dosens.edit');
 Route::put('dosen/{id}', [DosenPNPController::class, 'update'])->name('dosens.update');
 Route::delete('dosen/{id}', [DosenPNPController::class, 'destroy'])->name('dosens.destroy');
+
+//Eloquent ORM
+Route::get('dosenti', [DosentiController::class, 'index'])->name('dosenti.index');
+Route::get('dosenti/create', [DosentiController::class, 'create'])->name('dosenti.create');
+Route::post('dosenti', [DosentiController::class, 'store'])->name('dosenti.store');
+Route::get('dosenti/{id}/edit', [DosentiController::class, 'edit'])->name('dosenti.edit');
+Route::put('dosenti/{id}', [DosentiController::class, 'update'])->name('dosenti.update');
+Route::delete('dosenti/{id}', [DosentiController::class, 'destroy'])->name('dosenti.destroy');
+
+// Route::resource('dosenti', \App\Http\Controllers\dosen\DosentiController::class);
+
 
 Route::get('mahasiswas', [MahasiswaPNPController::class, 'index'])->name('mahasiswas.index');
 Route::get('mahasiswas/create', [MahasiswaPNPController::class, 'create'])->name('mahasiswas.create');
