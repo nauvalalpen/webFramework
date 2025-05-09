@@ -9,6 +9,8 @@ use App\Http\Controllers\dosen\DosenPNPController;
 use App\Http\Controllers\dosen\DosentiController;
 use App\Http\Controllers\mahasiswa\MahasiswaPNPController;
 use App\Http\Controllers\TeknisiController;
+use App\Http\Controllers\PenggunaController;
+
 
 
 //default routing
@@ -370,4 +372,20 @@ Route::get('force-delete',[DosenController::class,'forceDelete']);
 //create all views from MahasiswaFactory and seeder route
 Route::get('select-view', [MahasiswaController::class, 'selectView']);
 
+// User Authentication
+Route::get('pengguna/create', [PenggunaController::class, 'create'])->name('penggunas.create');
+Route::post('pengguna', [PenggunaController::class, 'store'])->name('penggunas.store');
+Route::get('pengguna', [PenggunaController::class, 'index'])->name('penggunas.index');
+Route::get('pengguna/{id}/edit', [PenggunaController::class, 'edit'])->name('penggunas.edit');
+Route::put('pengguna/{id}', [PenggunaController::class, 'update'])->name('penggunas.update');
+Route::delete('pengguna/{id}', [PenggunaController::class, 'destroy'])->name('penggunas.destroy');
 
+
+
+// Trash management routes - these must come BEFORE the resource route
+Route::get('penggunas/trash', [PenggunaController::class, 'trash'])->name('penggunas.trash');
+Route::post('penggunas/{id}/restore', [PenggunaController::class, 'restore'])->name('penggunas.restore');
+Route::delete('penggunas/{id}/force-delete', [PenggunaController::class, 'forceDelete'])->name('penggunas.force-delete');
+
+// Pengguna resource route
+Route::resource('penggunas', PenggunaController::class);
