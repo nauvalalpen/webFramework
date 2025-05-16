@@ -28,7 +28,7 @@
 
         <div class="card shadow-sm">
             <div class="card-body">
-                <form action="{{ route('penggunas.update', $pengguna->id) }}" method="POST">
+                <form action="{{ route('penggunas.update', $pengguna->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -72,6 +72,20 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    {{-- make for upload_file -- for .pdf, .jpg, .jpeg, .png --}}
+                    <div class="mb-3">
+                        @if ($pengguna->file_upload)
+                            <div><img src="{{ asset('storage/' . $pengguna->file_upload) }}" alt="Update File"
+                                    width="200"></div>
+                        @endif
+                        <label for="file_upload" class="form-label">Upload File Baru</label>
+                        <input type="file" class="form-control @error('file_upload') is-invalid @enderror"
+                            id="file_upload" name="file_upload" accept=".pdf, .jpg, .jpeg, .png">
+                        @error('file_upload')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    {{-- end make for upload_file --}}
 
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">

@@ -44,6 +44,7 @@
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th>Telepon</th>
+                                <th>Foto</th>
                                 <th width="20%">Aksi</th>
                             </tr>
                         </thead>
@@ -54,6 +55,14 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone }}</td>
+                                    <td>
+                                        @if ($user->file_upload)
+                                            <img src="{{ asset('storage/' . $user->file_upload) }}"alt="{{ $user->name }}"
+                                                width="100">
+                                        @else
+                                            <span style="color: grey">(Tidak ada Foto)</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <a href="{{ route('penggunas.show', $user->id) }}" class="btn btn-sm btn-info">

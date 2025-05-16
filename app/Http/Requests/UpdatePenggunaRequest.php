@@ -24,15 +24,10 @@ class UpdatePenggunaRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('penggunas')->ignore($this->route('pengguna')),
-            ],
-            'password' => 'nullable|min:6|confirmed',
             'phone' => 'nullable|digits_between:9,13',
+            'file_upload' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ];
     }
+
+    
 }

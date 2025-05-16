@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePenggunaRequest;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class PenggunaController extends Controller
 {
@@ -34,6 +35,14 @@ class PenggunaController extends Controller
     {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
+
+        // make for field file_upload
+        if ($request->hasFile('file_upload')) {
+            $file = $request->file('file_upload');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path=$file->storeAs('uploads', $filename, 'public');
+            $data['file_upload'] = $path;
+        }
         
         Pengguna::create($data);
         
@@ -62,24 +71,7 @@ class PenggunaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePenggunaRequest $request, string $id)
-    {
-        $pengguna = Pengguna::findOrFail($id);
-        $data = $request->validated();
-        
-        // Only update password if provided
-        if (isset($data['password']) && !empty($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
-        } else {
-            unset($data['password']);
-        }
-        
-        $pengguna->update($data);
-        
-        return redirect()->route('penggunas.index')
-            ->with('success', 'Pengguna berhasil diperbarui');
-    }
-
+    e
     /**
      * Remove the specified resource from storage.
      */
