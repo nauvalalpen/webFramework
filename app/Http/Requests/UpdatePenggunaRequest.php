@@ -25,7 +25,7 @@ class UpdatePenggunaRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'phone' => 'nullable|digits_between:9,13',
-            'file_upload' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'file_upload' => 'file|mimes:pdf,jpg,jpeg,png|max:2048',
         ];
     }
 

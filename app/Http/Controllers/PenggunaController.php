@@ -68,21 +68,53 @@ class PenggunaController extends Controller
         return view('penggunas.edit', compact('pengguna'));
     }
 
+    public function update(UpdatePenggunaRequest $request, string $id)
+    {
+        $pengguna = Pengguna::findOrFail($id);
+        $data = $request->validated();
+        
+        // make for update file_upload
+        if ($request->hasFile('file_upload')) {
+            // Hapus file lama/sebelumnya
+            if ($pengguna->file_upload && Storage::disk('public')->exists($pengguna->file_upload)){
+                Storage::disk('public')->delete($pengguna->file_upload);
+            }
+            // Upload file baru
+            $file = $request->file('file_upload');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path=$file->storeAs('uploads', $filename, 'public');
+            $data['file_upload'] = $path;
+        }
+
+        // Only update password if provided
+        if (isset($data['password']) && !empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+        
+        $pengguna->update($data);
+        
+        return redirect()->route('penggunas.index')
+            ->with('success', 'Pengguna berhasil diperbarui');
+    }
+
     /**
      * Update the specified resource in storage.
      */
-    e
+    
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        $pengguna = Pengguna::findOrFail($id);
-        $pengguna->delete();
-        
-        return redirect()->route('penggunas.index')
-            ->with('success', 'Pengguna berhasil dihapus');
-    }
+public function destroy($id)
+   {
+       $pengguna = Pengguna::findOrFail($id);
+       $pengguna->delete();
+
+
+       return redirect()->route('penggunas.index')->with('success', 'Pengguna berhasil dihapus.');
+   }
+
     
     /**
      * Display a listing of trashed resources.

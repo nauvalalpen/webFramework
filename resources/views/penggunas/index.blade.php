@@ -1,116 +1,94 @@
-@extends('layout.main')
-
-@section('content')
-    <div class="container mt-4">
-        <div class="row mb-3">
-            <div class="col">
-                <h2>Daftar Penggunas</h2>
-            </div>
+<x-app-layout>
+    <x-slot name="header">
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                Daftar Pengguna
+            </h2>
+            <a href="{{ route('penggunas.create') }}"
+                class="bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600 text-white px-4 py-2 rounded-lg">
+                Tambah Pengguna
+            </a>
         </div>
+    </x-slot>
 
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
 
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('success'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-        <div class="row mb-3">
-            <div class="col d-flex gap-2">
-                <a class="btn btn-primary" href="{{ route('penggunas.create') }}">
-                    <i class="bi bi-plus-circle"></i> Tambah Pengguna
-                </a>
-                <a class="btn btn-outline-secondary" href="{{ route('penggunas.trash') }}">
-                    <i class="bi bi-trash"></i> Lihat Data Terhapus
-                </a>
 
-            </div>
-        </div>
-
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th width="5%">No</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Telepon</th>
-                                <th>Foto</th>
-                                <th width="20%">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($penggunas as $index => $user)
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white dark:bg-gray-800">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
-                                    <td class="text-center">{{ $penggunas->firstItem() + $index }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->phone }}</td>
-                                    <td>
-                                        @if ($user->file_upload)
-                                            <img src="{{ asset('storage/' . $user->file_upload) }}"alt="{{ $user->name }}"
-                                                width="100">
-                                        @else
-                                            <span style="color: grey">(Tidak ada Foto)</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <a href="{{ route('penggunas.show', $user->id) }}" class="btn btn-sm btn-info">
-                                                <i class="bi bi-eye"></i> Lihat
-                                            </a>
-                                            <a href="{{ route('penggunas.edit', $user->id) }}"
-                                                class="btn btn-sm btn-warning">
-                                                <i class="bi bi-pencil"></i> Edit
-                                            </a>
-                                            <form action="{{ route('penggunas.destroy', $user->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Yakin hapus?')">
-                                                    <i class="bi bi-trash"></i> Hapus
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Nama</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Email</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Telepon</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Photo</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Aksi</th>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-3">Tidak ada data pengguna</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200">
+                                @foreach ($penggunas as $user)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
+                                            {{ $user->name }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
+                                            {{ $user->email }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
+                                            {{ $user->phone }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            @if ($user->file_upload)
+                                                <img src="{{ asset('storage/' . $user->file_upload) }}" alt="foto"
+                                                    class="max-w-[100px] max-h-[100px] object-cover rounded">
+                                            @else
+                                                <span class="text-gray-400 dark:text-gray-500">(tidak ada photo)</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex space-x-2">
+                                                <a href="{{ route('penggunas.edit', $user->id) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
+                                                    Edit
+                                                </a>
+                                                <form action="{{ route('penggunas.destroy', $user->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" onclick="return confirm('Yakin hapus?')"
+                                                        class="text-red-600 hover:text-red-900 dark:text-red-400">
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-4 px-6">
+                        {{ $penggunas->links() }}
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="mt-3">
-            {{ $penggunas->links() }}
-        </div>
     </div>
-
-    @if (session('success') || session('error'))
-        <script>
-            // Auto-dismiss alerts after 5 seconds
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(function() {
-                    var alerts = document.querySelectorAll('.alert');
-                    alerts.forEach(function(alert) {
-                        var bsAlert = new bootstrap.Alert(alert);
-                        bsAlert.close();
-                    });
-                }, 5000);
-            });
-        </script>
-    @endif
-@endsection
+</x-app-layout>
