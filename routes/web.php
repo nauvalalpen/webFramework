@@ -11,7 +11,8 @@ use App\Http\Controllers\dosen\DosenpnpController;
 use App\Http\Controllers\dosen\DosentiController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\TeknisiController;
-
+use App\Http\Controllers\DashboardController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 //default routing
 Route::get('/', function () {
@@ -367,6 +368,9 @@ Route::get('mahasiswapnp',[MahasiswaController::class,'selectView']);
 // Route::delete('pengguna/{id}',[PenggunaController::class,'destroy'])
 // ->name('penggunas.destroy');
 
+Route::middleware(['auth, verified'])->group(function () {
+   Route::get('/dashboard', DashboardController::class, 'index')->name('dashboard');
+});
 
 Route::get('/dashboard', function () {
    return view('dashboard');
