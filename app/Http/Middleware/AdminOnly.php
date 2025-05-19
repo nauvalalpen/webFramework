@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
+
 
 class AdminOnly
 {
@@ -15,6 +17,11 @@ class AdminOnly
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        // return $next($request);
+        // Check Authentication
+        if (Auth::check() && Auth::user()->role == 'admin') {
+            return $next($request);
+        }
+        abort(403, 'Hanya admin yang bisa akses halaman ini');
     }
 }

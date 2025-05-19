@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     //
-    public function indec(){
+    public function index(){
         $user = Auth::user();
         if(!$user||!isset($user->role)){
             abort(403, 'Tidak diizinkan');

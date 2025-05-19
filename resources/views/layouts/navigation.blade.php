@@ -15,9 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('penggunas.index')" :active="request()->routeIs('penggunas.*')">
-                        {{ __('Pengguna') }}
-                    </x-nav-link>
+                    {{-- Make if session role==admin can access to penggunas --}}
+                    @if (Auth::user()->role == 'admin')
+                        <x-nav-link :href="route('penggunas.index')" :active="request()->routeIs('penggunas.*')">
+                            {{ __('Pengguna') }}
+                        </x-nav-link>
+                    @endif
                 </div>
                 {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     

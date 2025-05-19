@@ -368,24 +368,18 @@ Route::get('mahasiswapnp',[MahasiswaController::class,'selectView']);
 // Route::delete('pengguna/{id}',[PenggunaController::class,'destroy'])
 // ->name('penggunas.destroy');
 
-Route::middleware(['auth, verified'])->group(function () {
-   Route::get('/dashboard', DashboardController::class, 'index')->name('dashboard');
-});
+Route::middleware(['auth', 'verified'])->group(function () {
+   Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-   return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-
-Route::middleware('auth')->group(function () {
-  Route::resource('penggunas', PenggunaController::class);
-  // Trash management routes - these must come BEFORE the resource route
-//   Route::get('penggunas/trash', [PenggunaController::class, 'trash'])->name('penggunas.trash');
-//   Route::post('penggunas/{id}/restore', [PenggunaController::class, 'restore'])->name('penggunas.restore');
-//   Route::delete('penggunas/{id}/force-delete', [PenggunaController::class, 'forceDelete'])->name('penggunas.force-delete');
-   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+   Route::prefix('profile')->group(function () {
+      Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+      Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+      Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+   });
+   // Admin Routes
+   Route::middleware(['auth', 'admin'])->group (function () {
+      Route::resource('penggunas', PenggunaController::class);
+   });
 });
 
 
