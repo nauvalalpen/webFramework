@@ -12,7 +12,11 @@ use App\Http\Controllers\dosen\DosentiController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\TeknisiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\SaleController;
+
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
 
 //default routing
 Route::get('/', function () {
@@ -379,8 +383,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
    // Admin Routes
    Route::middleware(['auth', 'admin'])->group (function () {
       Route::resource('penggunas', PenggunaController::class);
+      Route::resource('books', BookController::class);
+      Route::resource('sales', SaleController::class);
    });
 });
+
 
 
 require __DIR__.'/auth.php';
