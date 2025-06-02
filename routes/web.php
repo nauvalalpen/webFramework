@@ -15,6 +15,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\TodoController;
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -393,9 +394,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
       Route::get('/laporan/penjualan/pdf', [ReportController::class, 'exportPenjualanPdf'])->name('laporan.penjualan.pdf');
       Route::get('/laporan/penerbitan/excel', [ReportController::class, 'exportPenerbitanExcel'])->name('laporan.penerbitan.excel');
       Route::get('/laporan/penjualan/excel', [ReportController::class, 'exportPenjualanExcel'])->name('laporan.penjualan.excel');
+      Route::get('todos', [TodoController::class, 'index'])->name('todos.index');
+      Route::post('todos', [TodoController::class, 'store'])->name('todos.store');
+      Route::put('todos/{todo}', [TodoController::class, 'update'])->name('todos.update');
+      Route::delete('todos/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
    });
 });
-
-
 
 require __DIR__.'/auth.php';
