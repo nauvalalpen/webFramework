@@ -45,9 +45,9 @@
     @endif
 
     <a href="{{ route('books.create') }}">➕ Tambah Buku Baru</a>
-    {{-- <a href="{{ route('publishing.reports.index') }}">Laporan Publishing</a>
-<a href="{{ route('laporan.penerbitan.pdf') }}">Cetak PDF Penerbitan</a>
-<a href="{{ route('laporan.penerbitan.excel') }}">Export Excel Penerbitan</a> --}}
+    <a href="{{ route('publishing.reports.index') }}">Laporan Publishing</a>
+    <a href="{{ route('laporan.penerbitan.pdf') }}">Cetak PDF Penerbitan</a>
+    <a href="{{ route('laporan.penerbitan.excel') }}">Export Excel Penerbitan</a>
     <table>
         <thead>
             <tr>
